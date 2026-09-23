@@ -30,7 +30,6 @@ fi
 [[ -r /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Fuzzy finder and directory navigation.
-(( $+commands[fzf] )) && eval "$(fzf --zsh)"
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 (( $+commands[fdfind] )) && alias fd=fdfind
 (( $+commands[batcat] )) && alias bat=batcat
