@@ -1,35 +1,28 @@
 # WSL Ubuntu `u` updater
 
-A small Bash updater for Ubuntu running under WSL. It upgrades Ubuntu packages and, when installed, common developer tools. Run it with one letter: `u`.
+A short Zsh command to update Ubuntu packages in WSL.
 
 ## Install
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/priyanshuchawda/wsl-ubuntu-u-update/main/install.sh | bash
+source ~/.zshrc
 ```
-
-Open a new Bash shell (or run `source ~/.bashrc`) after installation.
 
 ## Use
 
-```bash
+```zsh
 u
 ```
 
-The updater uses `sudo` for Ubuntu and Snap packages. It runs `apt-get update`, `apt-get dist-upgrade`, removes unused packages, cleans the apt cache, and updates installed Snap, Rust, global npm/pnpm, Bun, uv tools, pipx tools, and Flutter. Tool failures are reported and the updater continues; an apt index refresh failure stops the update.
+The command refreshes APT package lists, upgrades installed Ubuntu packages, removes unused packages, and cleans the APT cache. It stops if a required APT step fails. It only updates Ubuntu packages; it does not update Snap packages, language toolchains, Docker Desktop, Windows applications, firmware, or the WSL kernel.
 
-Docker Desktop manages the Docker engine in WSL, so this updater does not prune images or update the engine. Firmware and Linux kernel reboot checks are also omitted because those are managed by Windows/WSL.
+## Zsh developer setup
 
-## Install manually
+Install Zsh, inline history suggestions, syntax highlighting, fuzzy search, and directory navigation with:
 
 ```bash
-mkdir -p ~/.local/bin
-curl -fsSL https://raw.githubusercontent.com/priyanshuchawda/wsl-ubuntu-u-update/main/u-update.sh -o ~/.local/bin/u-update
-chmod +x ~/.local/bin/u-update
-printf '\n# WSL Ubuntu updater shortcut\nalias u="~/.local/bin/u-update"\n' >> ~/.bashrc
-source ~/.bashrc
+sudo apt-get install zsh zsh-autosuggestions zsh-syntax-highlighting fzf zoxide
 ```
 
-## Uninstall
-
-Remove the `alias u=...` line added to `~/.bashrc`, then delete `~/.local/bin/u-update`.
+Use [zshrc.example](zshrc.example) as a starting point. Make Zsh the permanent login shell with `chsh -s "$(command -v zsh)"`, then open a new WSL terminal.
